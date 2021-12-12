@@ -3,7 +3,6 @@
     width: 100%;
 }
 
-
 .invoice-grid{
     padding: 1rem;
     flex-basis: 0 !important;
@@ -49,4 +48,5 @@ input::-webkit-input-placeholder{
     border-color: transparent;
     height: 40px;
     width: 40px;
+    cursor: pointer;
 }
