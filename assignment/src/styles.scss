@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+app-root{
+    height: 100%;
+}
+label{
+    font-size: 10px;
+    font-weight: 500;
+    color: #C9C9C9;
+}
+
+line-item, history{
+    width: 100%;
+    background-color: #FAFAFA;
+}
+.line-item-table{
+    tr.mat-header-row, tr.mat-row {
+        height: 60px;
+    }
+}

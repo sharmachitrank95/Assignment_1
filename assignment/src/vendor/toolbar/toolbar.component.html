@@ -1,0 +1,22 @@
+<div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+    <span></span>
+    <div fxLayout="row" fxLayoutGap="10px">
+            <button mat-stroked-button [matMenuTriggerFor]="belowMenu">
+                <span style="margin-right: .5rem;">More</span>
+                <svg  height="24px" width="24px" fill="#000000">
+                    <path d="M0 0h24v24H0z" fill="none"/><path d="M7 10l5 5 5-5z"/>
+                </svg>
+            </button>
+            <mat-menu #belowMenu="matMenu" xPosition="before" yPosition="below">
+                <button mat-menu-item>Export</button>
+                <button mat-menu-item>Mark as exported</button>
+                <mat-divider></mat-divider>
+                <button mat-menu-item>Setup vendor</button>
+                <mat-divider></mat-divider>
+                <button mat-menu-item>Flag Invoice</button>
+                <button mat-menu-item>Archive Invoice</button>
+                <button mat-menu-item style="color: red;">Delete Invoice</button>
+            </mat-menu>
+        <button mat-button mat-stroked-button style="background-color: #2095F3;color: white;width: 10rem;">Approve</button>
+    </div>
+</div>

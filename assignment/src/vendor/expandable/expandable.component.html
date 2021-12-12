@@ -1,0 +1,61 @@
+<div fxLayout="column" fxFlex="100">
+    <div fxLayout="column" fxFlex="{{!isExpandanded ? 40:10}}" class="invoice-grid">
+        <label *ngIf="!isExpandanded">VENDOR</label>
+        <div fxLayout="row" fxLayoutGap="10px">
+                <h1>{{vendor.name}}</h1>
+                <button (click)="isExpandanded = !isExpandanded" class="expand-toggle mat-elevation-z1">
+                    <svg *ngIf="!isExpandanded"  height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>
+                    <svg *ngIf="isExpandanded"  height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </button>
+        </div>
+        <span *ngIf="!isExpandanded" class="mapped-text">The vendor is mapped</span>
+        <mat-grid-list *ngIf="!isExpandanded" cols="4" rowHeight="fit" gutterSize="10px" style="height: 100%" >
+                <mat-grid-tile *ngFor="let tile of tiles"
+                    [colspan]="tile.cols"
+                    [rowspan]="tile.rows"
+                    class={{tile.class}}>
+                    <mat-grid-list *ngIf="tile.layout === 1" cols="1" rowHeight="fit" style="height: 100%;width: 100%;">
+                        <mat-grid-tile [colspan] = "1" [rowspan] = "1" >
+                            <label class="invoice-grid-tile--text">{{tile.label}}</label>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan] = "1" [rowspan] = "1">
+                            <span class="invoice-grid-tile--text">{{tile.text}}</span>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <mat-grid-list *ngIf="tile.layout === 0" cols="2" rowHeight="fit" style="height: 100%;width: 100%;">
+                        <mat-grid-tile [colspan] = "1" [rowspan] = "1">
+                            <label class="invoice-grid-tile--text">{{tile.label}}</label>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan] = "1" [rowspan] = "1">
+                            <span class="invoice-grid-tile--text">{{tile.text | currency}}</span>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan] = "2" [rowspan] = "2" class="main-tile">
+                    <svg *ngIf="!vendor.memo" height="20px" viewBox="0 0 24 24" width="20px" fill="#C9C9C9">
+                        <path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                    <input id="memo" [(ngModel)]="vendor.memo" placeholder="Click to enter Memo" class="memo-input">
+                </mat-grid-tile>
+        </mat-grid-list>
+        <div class="invoice-grid-tile--text" *ngIf="isExpandanded" fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+            <span fxFlex="25">{{vendor.invoice.invoiceNo}}</span>
+            <span fxFlex="25">{{formatDate(this.vendor.invoice.InvoiceDate)}}</span>
+            <span fxFlex="25">{{vendor.invoice.restaurant}}</span>
+            <div fxLayout="row" fxFlex="25" fxLayoutGap="10px" fxLayoutAlign="center center">
+                <label>TOTAL</label>
+                <span class="total-text">{{vendor.invoice.Total | currency}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- This can be simply done by mat tab group but I just showcased lazy loading of module in this -->
+    <div fxLayout="column" fxFlex>
+         <nav mat-tab-nav-bar #tabGroup mat-align-tabs="start"  fxLayout="row" fxFlex="5" class="nav-tabs">
+            <a id="line-items" mat-tab-link [routerLink]="['line-items']" routerLinkActive="active" #rla1="routerLinkActive" [active]="rla1.isActive">Line Items</a>
+            <a id="history" mat-tab-link [routerLink]="['history']" routerLinkActive="active" #rla2="routerLinkActive" [active]="rla2.isActive">History</a>
+        </nav>
+        <div fxLayout="row" fxFlex>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
